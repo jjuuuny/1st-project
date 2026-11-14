@@ -8,7 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 작업 범위: 상품 기획, 디자인, 광고 이미지, 상세페이지
 - 결과물 형식: 기획서는 Markdown, 상세페이지는 HTML(모바일 대응)
 - 작업 순서: 상품 기획부터 시작한다.
-- 디자인 도구(Figma 연동 여부), 폴더 구조: 아직 정해지지 않음. 정해지면 이 섹션에 추가한다.
+- 폴더 구조: `기획서/` — 상품기획서 등 기획 문서(Markdown)
+- 디자인 도구(Figma 연동 여부): 아직 정해지지 않음. 정해지면 이 섹션에 추가한다.
 
 ## 디자인
 
