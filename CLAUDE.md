@@ -25,6 +25,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 작업이 끝나면 변경한 내용을 설명한다.
 - 요청하지 않은 기능은 임의로 추가하지 않는다.
 - 기존 기능을 삭제하기 전에 사용자에게 확인한다.
+- 반복되는 작업이 생기면 그 작업에 맞는 스킬을 사용자에게 제안한다. 스킬은 사용자가 승인한 뒤 `.claude/skills/`에 만든다.
 
 ## 검토와 피드백
 
