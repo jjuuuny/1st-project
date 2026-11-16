@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sS https://beauticslab.com:*)",
+      "Bash(curl -sS https://www.oliveyoung.co.kr:*)",
+      "Bash(curl -sS https://openapi.naver.com:*)"
+    ]
+  }
+}
