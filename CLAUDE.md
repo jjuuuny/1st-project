@@ -15,6 +15,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 폴더 구조:
   - `기획서/` — 작업 문서. 근거, 출처, 확인 여부([확정]/[제안]/[미정] 등)를 남긴다.
   - `포트폴리오/` — 제출용 문서. "결정 + 근거"로만 쓰고 AI 작성·미검증 표시를 넣지 않는다. 모든 내용은 `기획서/`에 근거가 있어야 한다.
+- 서브에이전트 (`.claude/agents/`):
+  - `industry-reviewer` — 화장품 실무자 시선 검증. 단계가 끝날 때 사용
+  - `market-researcher` — 경쟁 제품·트렌드·업계 수치 조사, 출처와 신뢰도 포함
 - 디자인 도구(Figma 연동 여부): 아직 정해지지 않음. 정해지면 이 섹션에 추가한다.
 
 ## 포트폴리오 작성 원칙
