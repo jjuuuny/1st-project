@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>온결 패키지 평면 시안 1~3</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Pretendard", "WenQuanYi Zen Hei", sans-serif; background: #f4f3f1; color: #222; padding: 32px 20px 48px; }
+  header { max-width: 1160px; margin: 0 auto 28px; }
+  header h1 { font-size: 22px; font-weight: 700; }
+  header p { font-size: 13px; color: #666; margin-top: 6px; line-height: 1.6; }
+  .grid { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: #fff; border-radius: 14px; padding: 22px 20px 20px; }
+  .card h2 { font-size: 16px; font-weight: 700; }
+  .card .tag { font-size: 12px; color: #777; margin: 4px 0 18px; line-height: 1.5; }
+  .stage { display: flex; justify-content: center; align-items: flex-end; gap: 22px; height: 400px; border-radius: 10px; padding: 24px 10px; }
+  .notes { font-size: 12px; color: #555; margin-top: 14px; line-height: 1.7; }
+  .notes b { color: #222; }
+
+  /* 튜브 (정면 평면) */
+  .tube { width: 150px; height: 340px; position: relative; display: flex; flex-direction: column; }
+  .tube .crimp { height: 18px; border-radius: 3px 3px 0 0; }
+  .tube .body { flex: 1; border-radius: 4px 4px 10px 10px; padding: 22px 14px 14px; display: flex; flex-direction: column; }
+  .tube .cap { width: 64px; height: 30px; margin: 0 auto; border-radius: 0 0 8px 8px; }
+  .brand { font-size: 24px; font-weight: 700; letter-spacing: 0.04em; }
+  .brand-en { font-size: 8px; letter-spacing: 0.32em; margin-top: 3px; }
+  .pname { font-size: 15px; font-weight: 600; margin-top: 18px; line-height: 1.35; }
+  .ptype { font-size: 10px; margin-top: 4px; }
+  .cells { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: auto; border-top: 1px solid; border-bottom: 1px solid; }
+  .cells > div { padding: 8px 0 7px; text-align: center; }
+  .cells > div + div { border-left: 1px solid; }
+  .cells .k { font-size: 12px; font-weight: 700; }
+  .cells .e { font-size: 7px; letter-spacing: 0.12em; margin-top: 2px; }
+  .vol { font-size: 8px; margin-top: 8px; text-align: right; }
+
+  /* 토너 병 (정면 평면) */
+  .bottle { width: 104px; height: 300px; display: flex; flex-direction: column; align-items: center; }
+  .bottle .bcap { width: 44px; height: 46px; border-radius: 6px 6px 2px 2px; }
+  .bottle .neck { width: 32px; height: 10px; }
+  .bottle .bbody { width: 104px; flex: 1; border-radius: 16px; padding: 22px 10px 12px; display: flex; flex-direction: column; }
+  .bottle .brand { font-size: 17px; }
+  .bottle .pname { font-size: 12px; margin-top: 12px; }
+  .bottle .cells .k { font-size: 10px; }
+
+  /* 시안 1: 웜 그레이 + 오트 */
+  .v1 .stage { background: #e9e4dc; }
+  .v1 .crimp, .v1 .cap, .v1 .bcap, .v1 .neck { background: #8a8378; }
+  .v1 .body, .v1 .bbody { background: #f7f4ee; color: #3b3732; }
+  .v1 .cells { border-color: #3b3732; }
+  .v1 .cells > div + div { border-color: #3b3732; }
+  .v1 .ptype, .v1 .brand-en, .v1 .vol, .v1 .e { color: #8a8378; }
+
+  /* 시안 2: 세이지 그린 (동백 잎) */
+  .v2 .stage { background: #dfe5dc; }
+  .v2 .crimp, .v2 .cap, .v2 .bcap, .v2 .neck { background: #5f7461; }
+  .v2 .body, .v2 .bbody { background: #fbfbf8; color: #2f3a30; }
+  .v2 .brand { color: #2f3a30; }
+  .v2 .cells { border-color: #5f7461; }
+  .v2 .cells > div + div { border-color: #5f7461; }
+  .v2 .cells > div:first-child { background: #eef2ec; }
+  .v2 .ptype, .v2 .brand-en, .v2 .vol, .v2 .e { color: #6c7d6d; }
+  .v2 .seed { width: 7px; height: 9px; border-radius: 50%; background: #5f7461; display: inline-block; margin-left: 6px; vertical-align: 6px; }
+
+  /* 시안 3: 밤 (차콜 + 크림) */
+  .v3 .stage { background: #d9d6d2; }
+  .v3 .crimp, .v3 .cap, .v3 .bcap, .v3 .neck { background: #1f1d1c; }
+  .v3 .body, .v3 .bbody { background: #2e2b29; color: #efe7da; }
+  .v3 .cells { border-color: #a39a8c; }
+  .v3 .cells > div + div { border-color: #a39a8c; }
+  .v3 .ptype, .v3 .brand-en, .v3 .vol, .v3 .e { color: #b8ae9f; }
+  .v3 .night { font-size: 9px; color: #d8c9a8; margin-top: 10px; letter-spacing: 0.02em; }
+
+  footer { max-width: 1160px; margin: 26px auto 0; font-size: 12px; color: #777; line-height: 1.7; }
+</style>
+</head>
+<body>
+<header>
+  <h1>온결 패키지 평면 시안 1~3 (가을 출시 2종: 채움 크림 DRY 튜브 100ml · 채움 토너 DRY 300ml)</h1>
+  <p>가상 브랜드 목업. 경쟁 장벽 크림의 공통값(흰색 + 파랑, 영문 우선)과 겹치지 않게 파랑을 빼고 국문을 앞에 두었다. 앞면 아래 두 칸은 콘셉트 "채우고, 잠그는"의 구조다 (수치 없음 — 실증 전).</p>
+</header>
+
+<div class="grid">
+  <!-- 시안 1 -->
+  <section class="card v1">
+    <h2>시안 1 · 웜 그레이 + 오트</h2>
+    <p class="tag">가장 중립적인 미니멀. 무향·저자극 처방과 성별 공용에 맞춤</p>
+    <div class="stage">
+      <div class="tube">
+        <div class="crimp"></div>
+        <div class="body">
+          <div class="brand">온결</div>
+          <div class="brand-en">ONGYEOL</div>
+          <div class="pname">채움 크림<br>DRY</div>
+          <div class="ptype">건성용 · 동백 씨오일</div>
+          <div class="cells">
+            <div><div class="k">채움</div><div class="e">HYDRATE</div></div>
+            <div><div class="k">잠금</div><div class="e">SEAL</div></div>
+          </div>
+          <div class="vol">100 mL</div>
+        </div>
+        <div class="cap"></div>
+      </div>
+      <div class="bottle">
+        <div class="bcap"></div><div class="neck"></div>
+        <div class="bbody">
+          <div class="brand">온결</div>
+          <div class="pname">채움 토너<br>DRY</div>
+          <div class="ptype">건성용</div>
+          <div class="cells">
+            <div><div class="k">채움</div></div>
+            <div><div class="k">잠금</div></div>
+          </div>
+          <div class="vol">300 mL</div>
+        </div>
+      </div>
+    </div>
+    <p class="notes"><b>장점</b> 어느 연령·성별에도 무난, 제작 색 수 최소 (원가 유리)<br><b>단점</b> 매대에서 눈에 덜 띌 수 있음</p>
+  </section>
+
+  <!-- 시안 2 -->
+  <section class="card v2">
+    <h2>시안 2 · 세이지 그린 (동백 잎)</h2>
+    <p class="tag">대표 원료 동백을 꽃(빨강)이 아니라 잎·씨의 색으로. 라운드랩 동백(꽃·탄력)과 시각적으로 구분</p>
+    <div class="stage">
+      <div class="tube">
+        <div class="crimp"></div>
+        <div class="body">
+          <div class="brand">온결<span class="seed"></span></div>
+          <div class="brand-en">ONGYEOL</div>
+          <div class="pname">채움 크림<br>DRY</div>
+          <div class="ptype">건성용 · 동백 씨오일</div>
+          <div class="cells">
+            <div><div class="k">채움</div><div class="e">HYDRATE</div></div>
+            <div><div class="k">잠금</div><div class="e">SEAL</div></div>
+          </div>
+          <div class="vol">100 mL</div>
+        </div>
+        <div class="cap"></div>
+      </div>
+      <div class="bottle">
+        <div class="bcap"></div><div class="neck"></div>
+        <div class="bbody">
+          <div class="brand">온결</div>
+          <div class="pname">채움 토너<br>DRY</div>
+          <div class="ptype">건성용</div>
+          <div class="cells">
+            <div><div class="k">채움</div></div>
+            <div><div class="k">잠금</div></div>
+          </div>
+          <div class="vol">300 mL</div>
+        </div>
+      </div>
+    </div>
+    <p class="notes"><b>장점</b> 원료 스토리(동백 씨)가 색과 점 하나로 보임. 채움 칸에 옅은 면을 깔아 두 칸이 구분됨<br><b>단점</b> 그린은 '진정·시카' 연상이 있어 수분 메시지가 약해질 수 있음</p>
+  </section>
+
+  <!-- 시안 3 -->
+  <section class="card v3">
+    <h2>시안 3 · 밤 (차콜 + 크림)</h2>
+    <p class="tag">고객 약속 "밤에 바르면 아침까지"를 색으로. 경쟁 흰색 튜브 사이에서 가장 다르게 보임</p>
+    <div class="stage">
+      <div class="tube">
+        <div class="crimp"></div>
+        <div class="body">
+          <div class="brand">온결</div>
+          <div class="brand-en">ONGYEOL</div>
+          <div class="pname">채움 크림<br>DRY</div>
+          <div class="ptype">건성용 · 동백 씨오일</div>
+          <div class="night">밤에 바르는 장벽 크림</div>
+          <div class="cells">
+            <div><div class="k">채움</div><div class="e">HYDRATE</div></div>
+            <div><div class="k">잠금</div><div class="e">SEAL</div></div>
+          </div>
+          <div class="vol">100 mL</div>
+        </div>
+        <div class="cap"></div>
+      </div>
+      <div class="bottle">
+        <div class="bcap"></div><div class="neck"></div>
+        <div class="bbody">
+          <div class="brand">온결</div>
+          <div class="pname">채움 토너<br>DRY</div>
+          <div class="ptype">건성용</div>
+          <div class="cells">
+            <div><div class="k">채움</div></div>
+            <div><div class="k">잠금</div></div>
+          </div>
+          <div class="vol">300 mL</div>
+        </div>
+      </div>
+    </div>
+    <p class="notes"><b>장점</b> 매대 차별이 가장 큼, 고객 약속과 직결<br><b>단점</b> 어두운 튜브는 잔량이 안 보이고 인쇄비가 오를 수 있음. 토너까지 어두우면 '아침 루틴'에는 무거워 보일 수 있음</p>
+  </section>
+</div>
+
+<footer>
+  공통: 효능 동사(강화·회복·개선) 없음 · 질환·전문가 연상어 없음 · 실증 수치 자리는 비워 둠 · 실존 브랜드 로고·서체·용기 실루엣 미사용. 서체는 시안용(Pretendard), 실제 제작 시 라이선스 확인. 지성 라인(OILY)은 같은 구조에 띠 색만 바꿔 봄에 추가.
+</footer>
+</body>
+</html>
