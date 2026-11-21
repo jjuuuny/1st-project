@@ -5,7 +5,7 @@
 | 첫 화면 (정물) | v9_D1.png | v9_O5.png |
 | 제형 | 보정_D8.png | v9_O1.png |
 | 디테일·원료 | 합성_D5.png | v10_O7.png |
-| 무드 (밤↔아침) | 합성_D6.png | v9_O8.png (v10 O8 생성 예정) |
+| 무드 (밤↔아침) | 합성_D6.png | v10_O8.png |
 
 - 모든 원본은 Google Antigravity CLI(agy) 이미지 생성 도구(gemini-3.1-flash-image)로 생성. `_원본.jpg` = C2PA·SynthID가 남은 원본.
 - `합성_`·`보정_` 파일은 원본을 총괄 세션에서 편집한 파생본 (C2PA 메타데이터 없음):
