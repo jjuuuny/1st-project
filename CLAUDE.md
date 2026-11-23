@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - 스킬 (`.claude/skills/`):
   - `/stage-review` — 단계 정리 → 현업 리뷰어 검증 → 반영 → 기록
   - `/research-summary` — 조사 결과를 출처·신뢰도 표로 정리 → 기획서 반영
-- 디자인 도구: Figma 무료 계정 (8단계 전 쓰기 시험). 포트폴리오 형식은 가로 슬라이드 16:9.
+- 디자인 도구: Figma 무료 계정. 쓰기 시험 통과 (2026-11-23: MCP로 파일 생성·Noto Serif KR 텍스트·이미지 업로드 확인, 시험 파일 "온결 포트폴리오 (쓰기 시험)"). 포트폴리오 형식은 가로 슬라이드 16:9.
 - AI 생성 이미지: ChatGPT 무료 → 제미나이 무료 순서. 포트폴리오에는 "AI로 생성한 가상 브랜드 목업"이라고 밝힌다. 워터마크·SynthID는 지우지 않는다.
 - 실증 방향: 일반 화장품 + 보습 실증 (각질층 수분량 + TEWL). "피부장벽 개선" 류 효능 문구는 시험 근거가 있을 때만.
 
