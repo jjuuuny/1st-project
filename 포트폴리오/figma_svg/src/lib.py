@@ -17,10 +17,18 @@ class Slide:
         s.el.append(f'<text font-family="{fam}" font-size="{size}" font-weight="{weight}" fill="{color}"{sp} text-anchor="{anchor}">{ts}</text>')
         return y+size*lh*len(lines)
     def image(s,path,x,y,w,h,mode="meet"):
-        p=os.path.join(ROOT,path); mime='image/png' if p.endswith('.png') else 'image/jpeg'
+        # Figma ignores preserveAspectRatio -> size the <image> to the picture's exact ratio
+        from PIL import Image as _I
+        p=os.path.join(ROOT,path); iw,ih=_I.open(p).size; mime='image/png' if p.endswith('.png') else 'image/jpeg'
         b=base64.b64encode(open(p,'rb').read()).decode()
-        par='xMidYMid meet' if mode=="meet" else 'xMidYMid slice'
-        s.el.append(f'<image x="{x}" y="{y}" width="{w}" height="{h}" preserveAspectRatio="{par}" href="data:{mime};base64,{b}"/>')
+        r=min(w/iw,h/ih) if mode=="meet" else max(w/iw,h/ih)
+        nw,nh=iw*r,ih*r; nx,ny=x+(w-nw)/2,y+(h-nh)/2
+        if mode!="meet":  # crop via clipPath
+            cid=f"c{len(s.el)}"
+            s.el.append(f'<clipPath id="{cid}"><rect x="{x}" y="{y}" width="{w}" height="{h}"/></clipPath><g clip-path="url(#{cid})"><image x="{nx:.1f}" y="{ny:.1f}" width="{nw:.1f}" height="{nh:.1f}" href="data:{mime};base64,{b}"/></g>')
+        else:
+            s.el.append(f'<image x="{nx:.1f}" y="{ny:.1f}" width="{nw:.1f}" height="{nh:.1f}" href="data:{mime};base64,{b}"/>')
+
     def svg(s):
         return f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">'+''.join(s.el)+'</svg>'
     def save(s,outdir):
