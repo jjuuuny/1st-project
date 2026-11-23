@@ -20,7 +20,16 @@ class Slide:
         # Figma ignores preserveAspectRatio -> size the <image> to the picture's exact ratio
         from PIL import Image as _I
         p=os.path.join(ROOT,path); iw,ih=_I.open(p).size; mime='image/png' if p.endswith('.png') else 'image/jpeg'
-        b=base64.b64encode(open(p,'rb').read()).decode()
+        import io
+        im=_I.open(p); r0=min(w/iw,h/ih) if mode=="meet" else max(w/iw,h/ih)
+        tw_,th_=int(iw*r0*2),int(ih*r0*2)   # 2x display size is enough
+        if tw_<iw: im=im.resize((tw_,th_),_I.LANCZOS)
+        buf=io.BytesIO()
+        if im.mode in ("RGBA","LA","P") and p.endswith('.png') and 'RGBA'==im.convert('RGBA').mode and im.getextrema() and ('누끼' in p):
+            im.save(buf,'PNG',optimize=True); mime='image/png'
+        else:
+            im.convert('RGB').save(buf,'JPEG',quality=88); mime='image/jpeg'
+        b=base64.b64encode(buf.getvalue()).decode()
         r=min(w/iw,h/ih) if mode=="meet" else max(w/iw,h/ih)
         nw,nh=iw*r,ih*r; nx,ny=x+(w-nw)/2,y+(h-nh)/2
         if mode!="meet":  # crop via clipPath
