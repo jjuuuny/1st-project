@@ -43,3 +43,45 @@ def std(n,label,title,msg=None,src=None,ai=False):
     if src: s.text(140,1010,src,15,color=MUTE)
     if ai: s.text(1780,1010,"AI로 생성한 가상 브랜드 목업 (일부 합성·보정)",15,color=MUTE,anchor="end")
     return s
+
+def tw(t,size):
+    w=0
+    for ch in t:
+        o=ord(ch)
+        if 0xAC00<=o<=0xD7A3 or 0x3130<=o<=0x318F: w+=0.93
+        elif ch==' ': w+=0.26
+        elif ch in '.,·:;()\'"’‘“”[]/|-—–→↑%': w+=0.36
+        elif ch.isdigit(): w+=0.56
+        elif ch.isupper(): w+=0.64
+        else: w+=0.52
+    return w*size
+def wrap(text,size,maxw):
+    out=[]
+    for para in text.split('\n'):
+        words=para.split(' '); line=''
+        for wd in words:
+            cand=(line+' '+wd).strip()
+            if tw(cand,size)<=maxw or not line: line=cand
+            else: out.append(line); line=wd
+        out.append(line)
+    return out
+def para(s,x,y,text,size=22,w=1640,**k):
+    lines=wrap(text,size,w); return s.text(x,y,lines,size,**k)
+def bullets(s,x,y,w,items,size=22,gap=22):
+    cy=y
+    for t,b in items:
+        cy=para(s,x,cy,t,size,w,weight=700)+2
+        cy=para(s,x,cy,b,size-2,w,color=BODY)+gap
+    return cy
+def table(s,x,y,cols,rows,head=False,firstMute=False,size=22,gap=18,bold=lambda r,c:False):
+    cy=y
+    for ri,r in enumerate(rows):
+        hd=head and ri==0; h=0; cx=x
+        for ci,cell in enumerate(r):
+            mute=hd or (firstMute and ci==0)
+            sz=18 if mute else size
+            bot=para(s,cx,cy,cell,sz,cols[ci]-30,color=MUTE if mute else WINE,weight=700 if bold(ri,ci) else 400)
+            h=max(h,bot-cy); cx+=cols[ci]
+        cy+=h+gap
+        s.rect(x,cy-gap/2,sum(cols),1,WINE,.5 if hd else .18)
+    return cy
